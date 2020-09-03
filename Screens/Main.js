@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View,Image,ImageBackground, Dimensions,Linking} from 'react-native';
+import { StyleSheet, Text, View,Image,ImageBackground, Dimensions,Linking,Alert} from 'react-native';
 import { SocialIcon,Header} from 'react-native-elements'
 import Modal from 'react-native-modal';
 //import { Appbar } from 'react-native-paper';
@@ -39,6 +39,20 @@ export default class Main extends Component {
         };
         call(args).catch(console.error);
       };
+
+      showAlert(phone,name) {  
+        Alert.alert(  
+            'CALL',  
+            'Call '+name+'?',  
+            [  
+                {  
+                    text: 'Cancel', 
+                    style: 'cancel',  
+                },  
+                {text: 'OK', onPress: () => {this.call(phone)}},
+            ]  
+        );  
+    }  
 
     callback(){
         alert("123")
@@ -99,7 +113,7 @@ export default class Main extends Component {
                         <Text style = {styles.txtstylesocial}>Location</Text>    
                         </View>
                         <View style = {{flex:1,alignItems:"center",justifyContent:"center"}}>
-                        <Ionicons name="md-call" size={50} color="#0080ff" onPress={this.call.bind(this,'8124560988')}/>
+                        <Ionicons name="md-call" size={50} color="#0080ff" onPress={this.showAlert.bind(this,'7339003295','SS MEDIA NETWORK')}/>
                             <Text style = {styles.txtstylesocial}>Call</Text>  
                         </View>
                     </View>
@@ -112,11 +126,11 @@ export default class Main extends Component {
                         <View style = {{borderRightColor:"black",borderRightWidth:1,paddingRight : 10}}>
                         <View style = {{flexDirection:"row",alignItems:"center"}} >
                             <Ionicons name="md-call" size={13} color="white" style = {{paddingRight:5}}/>
-                            <Text style = {styles.txtcall} onPress = {this.call.bind(this,'9894530758')}>G Boobalan   : 9894530758</Text>
+                            <Text style = {styles.txtcall} onPress = {this.showAlert.bind(this,'9894530758','G Boobalan')}>G Boobalan   : 9894530758</Text>
                         </View>
                         <View style = {{flexDirection:"row",alignItems:"center"}} >
                             <Ionicons name="md-call" size={13} color="white" style = {{paddingRight:5}}/>
-                            <Text style = {styles.txtcall} onPress = {this.call.bind(this,'9488438415')}>K Saravanan : 9488438415</Text>
+                            <Text style = {styles.txtcall} onPress = {this.showAlert.bind(this,'9488438415','K Saravanan')}>K Saravanan : 9488438415</Text>
                         </View>
                         </View>
                         <View style = {{paddingLeft : 10}}>
