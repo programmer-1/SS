@@ -11,8 +11,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import call from 'react-native-phone-call';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import MapView from 'react-native-maps'
+//import MapView from 'react-native-maps'
 //import Video from 'react-native'
+//import Video from 'react-native-video';
 //import playControls from 'react-native-vector-icons/FontAwesome5';
 
 
@@ -54,6 +55,19 @@ export default class Main extends Component {
         );  
     }  
 
+     location = () =>{
+//         const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+//         const latLng = `${lat},${lng}`;
+//         const label = 'Custom Label';
+//         const url = Platform.select({
+//         ios: `${scheme}${label}@${latLng}`,
+//         android: `${scheme}${latLng}(${label})`
+ //});
+
+
+Linking.openURL('https://goo.gl/maps/ZVhVyYTiEA5KcAMKA');
+    }
+
     callback(){
         alert("123")
     }
@@ -73,8 +87,17 @@ export default class Main extends Component {
             />
                     {!this.state.isstream?<Image  source={require('../Images/Logo.png')} style={{width, height:width*.65}}/>:
                      <View>
+                         {/* <Video 
+                            source = {{uri:'https://ibccomedy-live.ibctamil.com/transcode/ibccomedy.m3u8s'}}  
+                            ref={(ref) => {
+                                this.player = ref
+                            }}
+                            onBuffer={this.onBuffer}
+                            onError={this.videoError}
+                            style={styles.backgroundVideo} 
+                            /> */}
                         <Video
-                        source = {{uri: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'}}
+                        source = {{uri:'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'}}
                         rate={1.0}
                         volume={1.0}
                         isMuted={false}
@@ -85,7 +108,7 @@ export default class Main extends Component {
                         style={{width, height:width*.65}}
                         />
                         {/* <AntDesign name="closecircle" size={24} color="red" style = {{position:"absolute",top:10,right:5}}/> */}
-                        <FontAwesome name="external-link" size={24} color="white" style = {{position:"absolute",top:10,right:10}} onPress = {() =>{Linking.openURL('http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4')}}/>
+                        <FontAwesome name="external-link" size={24} color="white" style = {{position:"absolute",top:10,right:10}} onPress = {() =>{Linking.openURL('https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8')}}/>
                      </View>
                     }
                 </View>
@@ -109,7 +132,7 @@ export default class Main extends Component {
                         <Text style = {styles.txtstylesocial}>Facebook</Text>  
                         </View>
                         <View style = {{flex:1,alignItems:"center",justifyContent:"center"}}>
-                        <MaterialCommunityIcons name="google-maps" size={50}  color="#37a670" />
+                        <MaterialCommunityIcons name="google-maps" size={50}  color="#37a670" onPress = {this.location}/>
                         <Text style = {styles.txtstylesocial}>Location</Text>    
                         </View>
                         <View style = {{flex:1,alignItems:"center",justifyContent:"center"}}>
@@ -166,6 +189,10 @@ const styles = StyleSheet.create({
         borderRightWidth:1,
         backgroundColor:"black"
     },
+    backgroundVideo: {
+        width,
+        height:width*.65
+      },
     Bottom:{
         alignItems:"center",
     },
