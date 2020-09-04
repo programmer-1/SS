@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View,Image,ImageBackground, Dimensions,Linking,Alert} from 'react-native';
+import { StyleSheet, Text, View,Image,ImageBackground, Dimensions,Linking,Alert,TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
 import { SocialIcon,Header} from 'react-native-elements'
 import Modal from 'react-native-modal';
 //import { Appbar } from 'react-native-paper';
@@ -11,6 +11,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import call from 'react-native-phone-call';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import KSYVideo from "react-native-ksyvideo";
 //import MapView from 'react-native-maps'
 //import Video from 'react-native'
 //import Video from 'react-native-video';
@@ -25,9 +26,10 @@ export default class Main extends Component {
         this.state = {
             isstream: false,
             isinfo : false,
+            isnavtoplayer:false,
             // currentTime:0,
             // duration:0.1,
-            // paused:false,
+             paused:false,
             // overlay:false,
             // isinfoAlert : false,
         }
@@ -55,6 +57,16 @@ export default class Main extends Component {
         );  
     }  
 
+    timeout = () => {
+        this.setState(prevState =>({
+            isnavtoplayer: !prevState.isnavtoplayer
+         }),() =>{
+             this.timeoutHandle = setTimeout(()=>{
+            if(this.state.isnavtoplayer === true)
+                this.setState({isnavtoplayer:false})
+        }, 3000);})
+    }
+
      location = () =>{
 //         const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
 //         const latLng = `${lat},${lng}`;
@@ -63,8 +75,6 @@ export default class Main extends Component {
 //         ios: `${scheme}${label}@${latLng}`,
 //         android: `${scheme}${latLng}(${label})`
  //});
-
-
 Linking.openURL('https://goo.gl/maps/ZVhVyYTiEA5KcAMKA');
     }
 
@@ -86,7 +96,8 @@ Linking.openURL('https://goo.gl/maps/ZVhVyYTiEA5KcAMKA');
                 rightComponent={<Entypo name="info-with-circle" size={24} color="white" onPress = {() =>{this.setState({isinfo:true})}} />}
             />
                     {!this.state.isstream?<Image  source={require('../Images/Logo.png')} style={{width, height:width*.65}}/>:
-                     <View>
+                     <TouchableWithoutFeedback onPress = {this.timeout}>
+                         <View>
                          {/* <Video 
                             source = {{uri:'https://ibccomedy-live.ibctamil.com/transcode/ibccomedy.m3u8s'}}  
                             ref={(ref) => {
@@ -96,8 +107,25 @@ Linking.openURL('https://goo.gl/maps/ZVhVyYTiEA5KcAMKA');
                             onError={this.videoError}
                             style={styles.backgroundVideo} 
                             /> */}
+
+                            {/* <KSYVideo
+                                    source={{
+                                        uri: "rtmp://184.72.239.149/vod/mp4:bigbuckbunny_1500.mp4"
+                                    }}
+                                    ref={ref => {
+                                        this.player = ref;
+                                    }}
+                                    volume={1.0}
+                                    muted={false}
+                                    paused={this.state.paused}
+                                    resizeMode="cover"
+                                    repeat={false}
+                                    playInBackground={false}
+                                    progressUpdateInterval={250.0}
+                                    style={styles.backgroundVideo}
+                                    />     */}
                         <Video
-                        source = {{uri:'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'}}
+                        source = {{uri:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'}}
                         rate={1.0}
                         volume={1.0}
                         isMuted={false}
@@ -108,8 +136,9 @@ Linking.openURL('https://goo.gl/maps/ZVhVyYTiEA5KcAMKA');
                         style={{width, height:width*.65}}
                         />
                         {/* <AntDesign name="closecircle" size={24} color="red" style = {{position:"absolute",top:10,right:5}}/> */}
-                        <FontAwesome name="external-link" size={24} color="white" style = {{position:"absolute",top:10,right:10}} onPress = {() =>{Linking.openURL('https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8')}}/>
-                     </View>
+                        {this.state.isnavtoplayer?<FontAwesome name="external-link" size={24} color="white" style = {{position:"absolute",top:10,right:10}} onPress = {() =>{Linking.openURL('https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8')}}/>:null}
+                        </View>
+                     </TouchableWithoutFeedback>
                     }
                 </View>
                 <Modal animationIn="slideInUp" animationOut="slideOutDown" onBackdropPress={()=>this.setState({isinfo: false})}
