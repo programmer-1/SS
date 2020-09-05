@@ -125,8 +125,8 @@ Linking.openURL('https://goo.gl/maps/ZVhVyYTiEA5KcAMKA');
                 centerComponent={{ text: 'SS TV Ranipet', style: { color: '#fff',fontSize:normalize(18,'width')} }}
                 rightComponent={<Entypo name="info-with-circle" size={22} color="white" onPress = {() =>{this.setState({isinfo:true})}} />}
             />
-            <View style = {{alignItems:"center",marginVertical:"5%"}}>
-                    <Image  source={require('../Images/spla.png')} style={{width:normalize(100,'width'),height:normalize(50,'height')}}/>
+            <View style = {{alignItems:"center",marginBottom:"2%"}}>
+                    <Image  source={require('../Images/logo.gif')} style={{width:normalize(100,'width'),height:normalize(75,'height')}}/>
                 </View>
             <View style={styles.container}>
                 <View style = {styles.Top}>
